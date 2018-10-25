@@ -6,7 +6,7 @@
 ///                                               ///
 ///    derived from Chopstick Junior 1.0          ///
 ///    version 1.0.6                              ///
-///    by Lutz Michaelis, November 2011           ///  
+///    by Lutz Michaelis, November 2011           ///
 ///    more about this robot and contact form:    ///
 ///    http://letsmakerobots.com/node/29708       ///
 ///    powered by                                 ///
@@ -17,8 +17,11 @@
 #include <Servo.h>
 
 // Importing Library Int
-#include "ActionBindingDef.h"
 #include "ServoPinBinding.h"
+
+#define SLAVE_MODE
+//#define MASTER_MODE
+
 
 // set the names of the servos
 Servo Servo_Leg_2;
@@ -52,10 +55,14 @@ int ultraSoundPulse = 13;
 int ultraSoundEcho = 3; // Ultrasound signal pin
 unsigned long ultrasoundValue = 0;
 
-const int buttonPin = 2;     
+const int buttonPin = 2;
 int buttonState = 0;
+String data = "";
 
-//////////////////////////////////////
+///////////////////////////////////////
+/*        Main Setup Function        */
+///////////////////////////////////////
+
 void setup()
 {
   #include "kdruSetup.h"
@@ -67,32 +74,39 @@ void setup()
 
 #include "MovementFunction.h"
 
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////
+/*        Main loop Function         */
+///////////////////////////////////////
+
 void loop()
 {
-  if ( Serial.available() ) {
-    int lu = Serial.parseInt();
-    Serial.println(lu);
-    int valeur;
-	  switch (lu){
-		  case CMD_FLATOUT:   flatout();break;
-		  case CMD_STANDUP:   standup();break;
-		  case CMD_SLEEP:     sleep();break;
-		  case CMD_STAND:     stand();break;
-		  case CMD_FORWARD:   forward();break;
-		  case CMD_RIGHTTURN: rightturn();break;
-		  case CMD_LEFTTURN:  leftturn(); break;
-		  case CMD_BACKWARD:  backward(); break;
-		  case CMD_LAYDOWN:   laydown();break;
-		  case CMD_GYM:       gym();break;
-		  case CMD_WINK:      wink();break;
-		  case CMD_SWEEP:     sweep();break;
-		  default:			      Serial.println("Erreur Input");break;
-	  }
-  } else {
-    Serial.println("Nothing");
-  }
+  #if (defined(SLAVE_MODE))
+		Serial.println("SLAVE MODE");
+		if ( Serial.available() ) {
+			int lu = Serial.parseInt();
+			Serial.println(lu);
+			slaveMovement(lu);
+		} else {
+			Serial.println("Nothing");
+		}
+	#elif (defined(MASTER_MODE))
+		Serial.println("MASTER MODE")
+		if ( Serial.available() ) {
+			int lu = Serial.parseInt()
+			Serial.println(lu);
+			switch (lu){
+				case CMD_FLATOUT:   flatout();break;
+				default:			      Serial.println("Erreur Input");break;
+			} else {
+			Serial.println("Nothing");
+			}
+  #endif
+
+  data = ("1_1:"+ String(Servo_Foot_1.read()) +" - 1_2 " + String(Servo_Leg_1.read()));
+  data += ("2_1:"+ String(Servo_Foot_2.read()) +" - 2_2 " + String(Servo_Leg_2.read()));
+  data += ("3_1:"+ String(Servo_Foot_3.read()) +" - 3_2 " + String(Servo_Leg_3.read()));
+  data += ("4_1:"+ String(Servo_Foot_4.read()) +" - 4_2 " + String(Servo_Leg_4.read()));
+
+  Serial.println(data);
   delay(2000);
 }

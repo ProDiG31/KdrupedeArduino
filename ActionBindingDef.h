@@ -12,3 +12,5 @@
 #define CMD_GYM 		10
 #define CMD_WINK 		11
 #define CMD_SWEEP 		12
+#define CMD_GETMODE 	13
+#define CMD_ZEROSERVO   14

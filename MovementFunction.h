@@ -1,20 +1,24 @@
+// coding : UTF-8
+
+#include "ActionBindingDef.h"
+
 //////////////////////////////////////
 void idle() // this is the delay between the steps -> walking speed
 {
   delay(100);  // if set to a bigger number (more delay between the steps -> slower walking) you will see the walking pattern more clearly
 }
-////////////////////////////////////// 
-void test() /* just for debugging -> if need a delay between the subroutines 
+//////////////////////////////////////
+void test() /* just for debugging -> if need a delay between the subroutines
  you can let the LED blink as an indicator that something is still running  */
 {
   Serial.println("Test");
-  for(b = 0; b < 3; b++) // this let the LED blink 5 times 
+  for(b = 0; b < 3; b++) // this let the LED blink 5 times
   {
     digitalWrite(13, HIGH);   // turn the LED on
     delay(300);               // wait for .5 second
     digitalWrite(13, LOW);    // turn the LED off
     delay(300);
-  }  
+  }
 }
 //////////////////////////////////////
 void flatout()
@@ -29,8 +33,22 @@ void flatout()
   Servo_Leg_3.write(home_Servo_Leg_3);
   Servo_Foot_3.write(home_Servo_Foot_3);
 }
+//////////////////////////////////////
+void servoZero()
+{
+  Serial.println("Zero Servo");
+  Servo_Leg_2.write(0);
+  Servo_Foot_2.write(0);
+  Servo_Leg_1.write(0);
+  Servo_Foot_1.write(0);
+  Servo_Leg_4.write(0);
+  Servo_Foot_4.write(0);
+  Servo_Leg_3.write(0);
+  Servo_Foot_3.write(0);
+}
+//////////////////////////////////////
 void standup()
-{  
+{
   Serial.println("standUp");
   up2 = 0;
   up3 = 0;
@@ -83,7 +101,7 @@ void stand()
   Servo_Foot_4.write(home_Servo_Foot_4+80);
   delay(20);
   Servo_Leg_3.write(home_Servo_Leg_3-20);
-  Servo_Foot_3.write(home_Servo_Foot_3-70); 
+  Servo_Foot_3.write(home_Servo_Foot_3-70);
   delay(20);
 }
 //////////////////////////////////////
@@ -99,9 +117,9 @@ void forward()
   idle();
   Servo_Foot_2.write(home_Servo_Foot_2+80);  //orig 170
   Servo_Foot_4.write(home_Servo_Foot_4+60);  //orig 170  //put the diagonal opposite leg down to keep the balance
-  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg 
+  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg
   Servo_Foot_2.write(home_Servo_Foot_2+80);  //orig 140 //lower the diagonal opposite leg a bit to keep the balance
-  Servo_Foot_4.write(home_Servo_Foot_4+50); 
+  Servo_Foot_4.write(home_Servo_Foot_4+50);
   idle();
   Servo_Leg_4.write(home_Servo_Leg_4+30); //orig 120
   Servo_Leg_2.write(home_Servo_Leg_2+20);
@@ -117,9 +135,9 @@ void forward()
   idle();
   Servo_Foot_1.write(home_Servo_Foot_1-70);
   Servo_Foot_3.write(home_Servo_Foot_3-70);  // put the diagonal opposite leg down to keep the balance
-  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg 
-  Servo_Foot_1.write(home_Servo_Foot_1-40);  // lower the diagonal opposite leg a bit to keep the balance 
-  Servo_Foot_3.write(home_Servo_Foot_3-40); 
+  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg
+  Servo_Foot_1.write(home_Servo_Foot_1-40);  // lower the diagonal opposite leg a bit to keep the balance
+  Servo_Foot_3.write(home_Servo_Foot_3-40);
   idle();
   Servo_Leg_3.write(home_Servo_Leg_3-20); //orig 30
   Servo_Leg_1.write(home_Servo_Leg_1); //orig 50
@@ -139,8 +157,8 @@ void rightturn()
   Servo_Leg_3.write(home_Servo_Leg_3);
   idle();
   Servo_Foot_2.write(home_Servo_Foot_2+80);
-  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg 
-  Servo_Foot_4.write(home_Servo_Foot_4+60); 
+  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg
+  Servo_Foot_4.write(home_Servo_Foot_4+60);
   idle();
   Servo_Leg_4.write(home_Servo_Leg_4+40);
   Servo_Leg_2.write(home_Servo_Leg_2+10);
@@ -153,8 +171,8 @@ void rightturn()
   Servo_Leg_4.write(home_Servo_Leg_4-40);
   idle();
   Servo_Foot_1.write(home_Servo_Foot_1-70);
-  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg  
-  Servo_Foot_3.write(home_Servo_Foot_3-30); 
+  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg
+  Servo_Foot_3.write(home_Servo_Foot_3-30);
   idle();
   Servo_Leg_3.write(home_Servo_Leg_3-20);
   Servo_Leg_1.write(home_Servo_Leg_1-40);
@@ -173,8 +191,8 @@ void leftturn()
   Servo_Leg_3.write(home_Servo_Leg_3+10);
   idle();
   Servo_Foot_2.write(home_Servo_Foot_2+80);
-  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg 
-  Servo_Foot_4.write(home_Servo_Foot_4+60); 
+  // lift rear left leg, move rear left hip forward and front right hip backward, lower rear left leg
+  Servo_Foot_4.write(home_Servo_Foot_4+60);
   idle();
   Servo_Leg_4.write(home_Servo_Leg_4);
   Servo_Leg_2.write(home_Servo_Leg_2+30);
@@ -187,8 +205,8 @@ void leftturn()
   Servo_Leg_4.write(home_Servo_Leg_4-30);
   idle();
   Servo_Foot_1.write(home_Servo_Foot_1-70);
-  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg  
-  Servo_Foot_3.write(home_Servo_Foot_3-30); 
+  // lift rear right leg, move rear right hip forward and front left hip backward, lower rear right leg
+  Servo_Foot_3.write(home_Servo_Foot_3-30);
   idle();
   Servo_Leg_3.write(home_Servo_Leg_3-60);
   Servo_Leg_1.write(home_Servo_Leg_1-10);
@@ -199,7 +217,6 @@ void leftturn()
 /////////////////////////////////////
 void backward()
 {
-  
   Serial.println("backWard");
   // lift front right leg, move front right hip backward and rear right hip forward, lower front right leg
   Servo_Foot_2.write(home_Servo_Foot_2+60);
@@ -208,8 +225,8 @@ void backward()
   Servo_Leg_3.write(home_Servo_Leg_3-40);
   idle();
   Servo_Foot_2.write(home_Servo_Foot_2+80);
-  // lift rear left leg, move rear left hip backward and front right hip forward, lower rear left leg 
-  Servo_Foot_4.write(home_Servo_Foot_4+40); 
+  // lift rear left leg, move rear left hip backward and front right hip forward, lower rear left leg
+  Servo_Foot_4.write(home_Servo_Foot_4+40);
   idle();
   Servo_Leg_4.write(home_Servo_Leg_4-30);
   Servo_Leg_2.write(home_Servo_Leg_2-45);
@@ -222,8 +239,8 @@ void backward()
   Servo_Leg_4.write(home_Servo_Leg_4+30);
   idle();
   Servo_Foot_1.write(home_Servo_Foot_1-70);
-  // lift rear right leg, move rear right hip backward and front left hip forward, lower rear right leg  
-  Servo_Foot_3.write(home_Servo_Foot_3-30); 
+  // lift rear right leg, move rear right hip backward and front left hip forward, lower rear right leg
+  Servo_Foot_3.write(home_Servo_Foot_3-30);
   idle();
   Servo_Leg_3.write(home_Servo_Leg_3+20);
   Servo_Leg_1.write(home_Servo_Leg_1+20);
@@ -236,13 +253,13 @@ void laydown() // lay down
 {
   Serial.println("laydown");
   Servo_Leg_2.write(home_Servo_Leg_2-20);
-  Servo_Leg_1.write(home_Servo_Leg_1-10); 
+  Servo_Leg_1.write(home_Servo_Leg_1-10);
   for (down = 80; down > 0; down = down - 1){
     Servo_Foot_2.write(home_Servo_Foot_2+down);
     down2 = 100 - down;
     Servo_Foot_1.write(home_Servo_Foot_1+down2);
     delay(15);
-  } 
+  }
   delay(1000);
   Servo_Leg_4.write(home_Servo_Leg_4-10);
   Servo_Leg_3.write(home_Servo_Leg_3-20);
@@ -257,7 +274,6 @@ void laydown() // lay down
 void gym() // ok, this is not very serious but I needed to cheer me up a bit ;-) just see...
 {
   Serial.println("gym");
-  int y;
   Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Foot_4.write(home_Servo_Foot_4+40);
   delay(200);
@@ -270,8 +286,8 @@ void gym() // ok, this is not very serious but I needed to cheer me up a bit ;-)
   Servo_Leg_4.write(home_Servo_Leg_4+30);
   delay(20);
   Servo_Leg_3.write(home_Servo_Leg_3-20);
-  Servo_Foot_3.write(home_Servo_Foot_3-70); 
-  delay(20);   
+  Servo_Foot_3.write(home_Servo_Foot_3-70);
+  delay(20);
 }
 /////////////////////////////////////
 void wink()
@@ -293,7 +309,7 @@ void wink()
 }
 /////////////////////////////////////
 void sweep()
-{  
+{
   Serial.println("sweep");
   for(pos = 20; pos < 160; pos += 1)   // goes from 0 degrees to 180 degrees 
   {                                    // in steps of 1 degree 
@@ -304,17 +320,22 @@ void sweep()
     //Serial.print(" - Position ");
     //Serial.print(pos);
     //Serial.println();
-  } 
+  }
   for(pos = 160; pos >= 20; pos -= 1)      // goes from 180 degrees to 0 degrees 
-  {                                
+  {
     eye.write(pos);                    // tell servo to go to position in variable 'pos' 
     delay(10);                         // waits 15ms for the servo to reach the position 
     distance = analogRead(sensor);
-    //Serial.print(distance);
-    //Serial.print(" - Position ");
-    //Serial.print(pos);  
-    //Serial.println();
-  }       
+  }
+}
+
+String getMode(){
+  Serial.println("getMode");
+  #if (defined(SLAVE_MODE)) 
+    return ("SLAVE");
+  #elif (defined(MASTER_MODE)) 
+    return ("MASTER");
+  #endif
 }
 
 unsigned long ping()
@@ -331,4 +352,26 @@ unsigned long ping()
   echo = pulseIn(ultraSoundEcho, HIGH); //Listen for echo
   ultrasoundValue = (echo / 58.138) * .39; //convert to CM then to inches
   return ultrasoundValue;
+}
+
+
+void slaveMovement(int lu)
+{
+  switch (lu){
+    case CMD_FLATOUT:   flatout(); break;
+    case CMD_STANDUP:   standup(); break;
+    case CMD_SLEEP:     sleep(); break;
+    case CMD_STAND:     stand(); break;
+    case CMD_FORWARD:   forward(); break;
+    case CMD_RIGHTTURN: rightturn(); break;
+    case CMD_LEFTTURN:  leftturn();  break;
+    case CMD_BACKWARD:  backward();  break;
+    case CMD_LAYDOWN:   laydown(); break;
+    case CMD_GYM:       gym(); break;
+    case CMD_WINK:      wink(); break;
+    case CMD_SWEEP:     sweep(); break;
+    case CMD_GETMODE:   getMode(); break;
+    case CMD_ZEROSERVO: servoZero(); break;
+    default: Serial.println("Erreur Input");
+  }
 }
