@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Surveill'Home</title>
+<link rel="stylesheet" type="text/css" href="./style.css"/>
+
+<script type="text/javascript">
+	var attempt = 3;
+	// Variable to count number of attempts.
+	// Below function Executes on click of login button.
+	function validate(){
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		if ( username == "admin" && password == "admin"){
+			alert ("Login successfully");
+			window.location = "page1.html"; // Redirecting to other page.
+			return false;
+		}
+		else{
+			attempt --;// Decrementing by one.
+			alert("You have left "+attempt+" attempt;");
+			// Disabling fields after 3 attempts.
+			if( attempt == 0){
+			document.getElementById("username").disabled = true;
+			document.getElementById("password").disabled = true;
+			document.getElementById("submit").disabled = true;
+			return false;
+			}
+		}
+	}
+</script>
+
+</head>
+<body>
+	<div class="container-index">
+		<div class="main-index">
+			<span style="font-size:75px">
+				<span style="color:red; font-size: 125px">S</span>urveill'<span style="color:red; font-size: 125px">H</span>ome
+			</span>
+			</br></br>
+			</br></br>
+				<form id="form_id" method="post" name="myform">
+					<input type="text" name="username" id="username" placeholder=" Username"/></br>
+					<input type="password" name="password" id="password" placeholder=" Password"/></br></br>
+					<input type="button" value="Login" id="submit" onclick="validate()"/>
+				</form>
+			</br></br>
+			<span style="font-size: 10px"><b class="note">Note : </b>Unauthorized access is denied if you don't have valid credentials. <br/></span>
+		</div>
+	</div>
+</body>
+</html>
