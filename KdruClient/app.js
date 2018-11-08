@@ -20,6 +20,7 @@ router.use('/css', express.static(`${__dirname}/views/css`));
 router.use('/js', express.static(`${__dirname}/views/js`));
 router.use('/data', express.static(`${__dirname}/views/data`));
 router.use('/img', express.static(`${__dirname}/views/img`));
+router.use('/template', express.static(`${__dirname}/views/template`));
 
 // path de redirection
 // Path /
