@@ -22,11 +22,6 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  location: String,
-  admin: {
-    type: Boolean,
-    default: false,
-  },
   password: {
     type: String,
     required: true,
@@ -34,38 +29,38 @@ const userSchema = new Schema({
   phoneNumber: String,
   created_at: Date,
   updated_at: Date,
-  birthDate: Date,
-
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number },
 });
 
 // A chaque enregistrement en base
-userSchema.pre('save', (next) => {
-  const user = this;
-  // const salt = bcrypt.genSaltSync(10);
-  const currentDate = new Date();
+userSchema.pre('save', function(next) {
+  console.log("Saving")
 
+  console.log(this)
+  let user = this
   // change the updated_at field to current date
-  user.updated_at = currentDate;
+  user.updated_at = new Date();
 
   // if created_at doesn't exist, add to that field
-  if (!user.created_at) { user.created_at = currentDate; }
+  if (!user.created_at) { user.currentDate = user.created_at; }
 
-  // console.log("Password : " + this.password)
-  if (!user.isModified('password')) return next();
+  console.log("Password : " + user.password)
+  console.log("Name : " + this.name)
+  console.log("Mail : " + this.mail)
+  // if (!user.isModified('password')) return next();
 
   // generate a salt
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return err;
-    // console.log(user)
+    console.log(user)
     // hash the password using our new salt
     bcrypt.hash(user.password, salt, (errCrypt, hash) => {
       if (errCrypt) return errCrypt;
-      // console.log("Hash = "+ hash)
+      console.log("Hash = "+ hash)
       // override the cleartext password with the hashed one
       user.password = hash;
-      return next();
+      next();
     });
   });
 });
@@ -78,12 +73,17 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.statics.getAuthenticated = async function (username, password) {
+  console.log("Authenticating")
   const user = await this.findOne({ username });
   if (!user) return null;
+
+  console.log("user found")
+  console.log(user)
 
   const isSame = await bcrypt.compare(password, user.password);
   if (!isSame) return null;
 
+  console.log("password confirmed")
   return user;
 };
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
-require('../model');
+require('../DataModel');
 
 const mongoCredential = ({
   host: process.env.DB_HOST,
