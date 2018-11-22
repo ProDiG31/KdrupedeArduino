@@ -24,14 +24,16 @@
 
 
 // set the names of the servos
-Servo Servo_Leg_2;
-Servo Servo_Foot_2;
+
 Servo Servo_Leg_1;
 Servo Servo_Foot_1;
-Servo Servo_Leg_4;
-Servo Servo_Foot_4;
+Servo Servo_Leg_2;
+Servo Servo_Foot_2;
 Servo Servo_Leg_3;
 Servo Servo_Foot_3;
+Servo Servo_Leg_4;
+Servo Servo_Foot_4;
+
 Servo eye;
 
 int b;
@@ -94,15 +96,16 @@ void loop()
 		if ( Serial.available() ) {
 			int lu = Serial.parseInt()
 			Serial.println(lu);
-			switch (lu){
-				case CMD_FLATOUT:   flatout();break;
-				default:			      Serial.println("Erreur Input");break;
-			} else {
-			Serial.println("Nothing");
+			// switch (lu){
+			// 	case CMD_FLATOUT:   flatout();break;
+			// 	default:
+			// 		Serial.println("Erreur Input");break;
+			// } else {
+			// 	Serial.println("Nothing catch");
 			}
   #endif
 
-  data = ("1_1:"+ String(Servo_Foot_1.read()) +" - 1_2 " + String(Servo_Leg_1.read()));
+  data =  ("1_1:"+ String(Servo_Foot_1.read()) +" - 1_2 " + String(Servo_Leg_1.read()));
   data += ("2_1:"+ String(Servo_Foot_2.read()) +" - 2_2 " + String(Servo_Leg_2.read()));
   data += ("3_1:"+ String(Servo_Foot_3.read()) +" - 3_2 " + String(Servo_Leg_3.read()));
   data += ("4_1:"+ String(Servo_Foot_4.read()) +" - 4_2 " + String(Servo_Leg_4.read()));

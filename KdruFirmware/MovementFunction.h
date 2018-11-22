@@ -24,27 +24,27 @@ void test() /* just for debugging -> if need a delay between the subroutines
 void flatout()
 {
   Serial.println("flatout");
-  Servo_Leg_2.write(home_Servo_Leg_2);
-  Servo_Foot_2.write(home_Servo_Foot_2);
   Servo_Leg_1.write(home_Servo_Leg_1);
   Servo_Foot_1.write(home_Servo_Foot_1);
-  Servo_Leg_4.write(home_Servo_Leg_4);
-  Servo_Foot_4.write(home_Servo_Foot_4);
+  Servo_Leg_2.write(home_Servo_Leg_2);
+  Servo_Foot_2.write(home_Servo_Foot_2);
   Servo_Leg_3.write(home_Servo_Leg_3);
   Servo_Foot_3.write(home_Servo_Foot_3);
+  Servo_Leg_4.write(home_Servo_Leg_4);
+  Servo_Foot_4.write(home_Servo_Foot_4);
 }
 //////////////////////////////////////
 void servoZero()
 {
   Serial.println("Zero Servo");
-  Servo_Leg_2.write(0);
-  Servo_Foot_2.write(0);
   Servo_Leg_1.write(0);
   Servo_Foot_1.write(0);
-  Servo_Leg_4.write(0);
-  Servo_Foot_4.write(0);
+  Servo_Leg_2.write(0);
+  Servo_Foot_2.write(0);
   Servo_Leg_3.write(0);
   Servo_Foot_3.write(0);
+  Servo_Leg_4.write(0);
+  Servo_Foot_4.write(0);
 }
 //////////////////////////////////////
 void standup()
@@ -52,14 +52,14 @@ void standup()
   Serial.println("standUp");
   up2 = 0;
   up3 = 0;
-  Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Leg_1.write(home_Servo_Leg_1-10);
-  Servo_Leg_4.write(home_Servo_Leg_4+30);
+  Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Leg_3.write(home_Servo_Leg_3-20);
+  Servo_Leg_4.write(home_Servo_Leg_4+30);
   for(up = 0; up < 80; up++)
   {
     Servo_Foot_2.write(up+home_Servo_Foot_2);
-    up2 = up2 - 1;
+    up2 -= 1;
     Servo_Foot_1.write(up2+home_Servo_Foot_1);
     delay(20);
   }
@@ -77,15 +77,15 @@ void sleep()
 {
   Serial.println("sleep");
   // hips
-  Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Leg_1.write(home_Servo_Leg_1);
-  Servo_Leg_4.write(home_Servo_Leg_4-20);
+  Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Leg_3.write(home_Servo_Leg_3);
+  Servo_Leg_4.write(home_Servo_Leg_4-20);
   // legs
-  Servo_Foot_2.write(home_Servo_Foot_2-90);
   Servo_Foot_1.write(home_Servo_Foot_1+90);
-  Servo_Foot_4.write(home_Servo_Foot_4-90);
+  Servo_Foot_2.write(home_Servo_Foot_2-90);
   Servo_Foot_3.write(home_Servo_Foot_3+90);
+  Servo_Foot_4.write(home_Servo_Foot_4-90);
 }
 //////////////////////////////////////
 void stand()
@@ -252,8 +252,8 @@ void backward()
 void laydown() // lay down
 {
   Serial.println("laydown");
-  Servo_Leg_2.write(home_Servo_Leg_2-20);
   Servo_Leg_1.write(home_Servo_Leg_1-10);
+  Servo_Leg_2.write(home_Servo_Leg_2-20);
   for (down = 80; down > 0; down = down - 1){
     Servo_Foot_2.write(home_Servo_Foot_2+down);
     down2 = 100 - down;
@@ -331,9 +331,9 @@ void sweep()
 
 String getMode(){
   Serial.println("getMode");
-  #if (defined(SLAVE_MODE)) 
+  #if (defined(SLAVE_MODE)
     return ("SLAVE");
-  #elif (defined(MASTER_MODE)) 
+  #elif (defined(MASTER_MODE))
     return ("MASTER");
   #endif
 }
